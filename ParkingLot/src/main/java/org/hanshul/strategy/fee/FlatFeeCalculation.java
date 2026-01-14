@@ -5,7 +5,11 @@ import org.hanshul.strategy.fee.FeeCalculationStrategy;
 import java.time.Instant;
 
 public class FlatFeeCalculation implements FeeCalculationStrategy {
-    private final double parkingRate = 8.0;
+    private static final double parkingRate;
+
+    static {
+        parkingRate = 8.0;
+    }
 
     @Override
     public double calculate(String ticketId) {
