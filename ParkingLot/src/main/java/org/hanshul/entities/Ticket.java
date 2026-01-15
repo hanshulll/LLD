@@ -2,13 +2,16 @@ package org.hanshul.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hanshul.entities.vehicle.Vehicle;
 import org.hanshul.enums.VehicleSize;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
 public class Ticket {
     private String ticketId;
     private VehicleSize vehicleSize;
@@ -17,6 +20,7 @@ public class Ticket {
     private Instant exitTime;
 
     public Ticket(Vehicle vehicle) {
+        this.ticketId = UUID.randomUUID().toString();
         this.vehicle = vehicle;
         this.vehicleSize = vehicle.getVehicleSize();
         this.entryTime = Instant.now();

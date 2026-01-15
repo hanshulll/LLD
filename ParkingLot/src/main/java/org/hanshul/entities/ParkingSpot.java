@@ -14,5 +14,6 @@ public class ParkingSpot {
 
     public ParkingSpot(VehicleSize spotSize) {
         this.spotSize = spotSize;
+        isOccupied = false;
     }
 }
