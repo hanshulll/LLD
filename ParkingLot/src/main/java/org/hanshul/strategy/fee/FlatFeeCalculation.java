@@ -1,7 +1,9 @@
 package org.hanshul.strategy.fee;
 
+import org.hanshul.enums.VehicleSize;
 import org.hanshul.strategy.fee.FeeCalculationStrategy;
 
+import java.time.Duration;
 import java.time.Instant;
 
 public class FlatFeeCalculation implements FeeCalculationStrategy {
@@ -12,8 +14,11 @@ public class FlatFeeCalculation implements FeeCalculationStrategy {
     }
 
     @Override
-    public double calculate(String ticketId) {
-        Instant now = Instant.now();
-        return 0;
+    public double calculate(Duration duration, VehicleSize vehicleSize) {
+        long hours = duration.toHours();
+        if (duration.toMinutes()!=60) {
+            hours++;
+        }
+        return hours*parkingRate;
     }
 }

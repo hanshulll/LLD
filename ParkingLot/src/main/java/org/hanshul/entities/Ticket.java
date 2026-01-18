@@ -1,6 +1,9 @@
 package org.hanshul.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hanshul.entities.vehicle.Vehicle;
@@ -12,6 +15,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Ticket {
     private String ticketId;
     private VehicleSize vehicleSize;
@@ -24,5 +30,9 @@ public class Ticket {
         this.vehicle = vehicle;
         this.vehicleSize = vehicle.getVehicleSize();
         this.entryTime = Instant.now();
+    }
+
+    public void markExit() {
+        this.exitTime = Instant.now();
     }
 }
