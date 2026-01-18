@@ -5,6 +5,7 @@ import org.hanshul.entities.ParkingSpot;
 import org.hanshul.entities.Ticket;
 import org.hanshul.entities.vehicle.Vehicle;
 import org.hanshul.enums.VehicleSize;
+import org.hanshul.strategy.fee.FeeCalculationStrategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +17,9 @@ public class ParkingLot {
     private int parkingFloorsCount;
     private List<ParkingFloor> parkingFloors;
     private static volatile ParkingLot INSTANCE;
-
     private Map<String,Ticket> allActiveTickets;
+    private FeeCalculationStrategy feeCalculationStrategy;
+
     private ParkingLot() {
         parkingFloors = new ArrayList<>();
         allActiveTickets = new HashMap<>();
@@ -43,18 +45,21 @@ public class ParkingLot {
     }
 
     public void addParkingSpotsToExistingFloor(int floorNumber, List<ParkingSpot> parkingSpots) {
-        if (floorNumber<parkingFloors.size()) {
-            parkingFloors.get(floorNumber).getSpots().addAll(parkingSpots);
+        if ((floorNumber-1)<parkingFloors.size()) {
+            parkingFloors.get(floorNumber-1).getSpots().addAll(parkingSpots);
         }
     }
 
     public void addParkingSpotToExistingFloor(int floorNumber, ParkingSpot parkingSpot) {
-        if (floorNumber<parkingFloors.size()) {
-            parkingFloors.get(floorNumber).getSpots().add(parkingSpot);
+        if ((floorNumber-1)<parkingFloors.size()) {
+            parkingFloors.get(floorNumber-1).getSpots().add(parkingSpot);
         }
     }
 
     public boolean removeParkingSpot(int floorNumber, ParkingSpot parkingSpot) {
+        if ((floorNumber-1)<parkingFloors.size()) {
+            return parkingFloors.get(floorNumber-1).getSpots().remove(parkingSpot);
+        }
         return false;
     }
 
@@ -78,6 +83,9 @@ public class ParkingLot {
     }
 
     public double unparkVehicle(String ticketId) {
+        if(allActiveTickets.containsKey(ticketId)) {
+
+        }
         return 0.0;
     }
 
